@@ -30,23 +30,20 @@ namespace web
             //var catalogo = new Catalogo();
             //services.AddSingleton<ICatalogo>(catalogo);
             //services.AddSingleton<IRelatorio>(new Relatorio(catalogo));
-
         }
 
         //ServiceProvider é um agente da injeção de dependências para prover os serviços da aplicação
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseRouting();
 
             ICatalogo catalogo = serviceProvider.GetService<ICatalogo>();
+
             //Pelo fato do Catalogo também ser um serviço gerenciado pela injeção de dependências ele não precisa ser passado como parâmetro obrigatório
             //no construtor da classe Relatorio
-
             IRelatorio relatorio = serviceProvider.GetService<IRelatorio>();
 
             app.UseEndpoints(endpoints =>
